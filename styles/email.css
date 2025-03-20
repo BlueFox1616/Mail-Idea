@@ -1,0 +1,105 @@
+:root {
+    --yellowcream: #fdf1db;
+    --coalblack: #2d2a2a;
+    --lightcream: #fcf7ec;
+}
+
+.space_name {
+    font-size: 8.125rem; /* 130px */
+    color: var(--coalblack);
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    text-shadow: 0px 0.8125rem 1.8125rem rgba(0, 0, 0, 0.18); /* 13px 29px */
+    margin: 0;
+}
+
+.space_icons {
+    text-align: center;
+    font-size: 1.875rem; /* 30px */
+    font-family: "Apple Color Emoji";
+    line-height: 1.2;
+    letter-spacing: 2.5rem; /* 40px */
+}
+
+h1 {
+    font-family: "Playfair Display";
+    font-weight: bold;
+    font-style: italic;
+}
+
+body {
+    background: linear-gradient(
+        180deg,
+        rgba(253, 253, 253, 1) 0%,
+        rgba(248, 236, 214, 1) 100%
+    );
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Ensures the gradient covers the full viewport height */
+}
+
+.flex-container {
+    display: flex;
+    background-color: var(--yellowcream);
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 60vh;
+    width: 70vw;
+    box-shadow: 0px 0.8125rem 1.8125rem rgba(0, 0, 0, 0.18);
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+    overflow: scroll;
+}
+
+.flex-container > div {
+    background-color: #f1f1f1;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    min-height: 6rem; /* Set a minimum height for each item */
+    flex-grow: 1;
+    min-height: 6rem;
+    transition: min-height 0.3s ease-in-out;
+
+    /* Allow items to grow */
+}
+
+.flex-container > div.ExpandedMail {
+    min-height: 30rem;
+}
+
+.flex-container > div:first-child {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.you,
+.receipt {
+    opacity: 0.5;
+}
+
+.header {
+    min-height: 175px; /* Adjust based on your design */
+}
+
+.receipt:hover,
+.you:hover {
+    opacity: 1;
+}
+.hide {
+    display: none;
+}
+.fullscreenicon {
+    height: 2.5rem;
+    position: relative;
+    top: 0%;
+    left: 50%;
+    padding-right: 3rem;
+}
