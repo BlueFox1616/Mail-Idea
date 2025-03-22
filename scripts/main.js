@@ -1,4 +1,4 @@
-const CLIENT_ID = "YOUR_CLIENT_ID";  // Replace with your actual Client ID
+const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";  // Replace with your actual Client ID
 const SCOPES = "https://www.googleapis.com/auth/gmail.readonly";
 
 document.addEventListener("DOMContentLoaded", () => {
