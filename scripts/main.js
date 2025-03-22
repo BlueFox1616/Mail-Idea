@@ -41,13 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
         callback: handleCredentialResponse
     });
 
-    google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            console.log("User is NOT signed in.");
-        } else {
-            console.log("User is signed in.");
-        }
-    });
+    google.accounts.id.prompt(); // Triggers a One-Tap prompt
+
+    console.log("Checking authentication...");
+}
+
+function handleCredentialResponse(response) {
+    if (response.credential) {
+        console.log("✅ User is signed in:", response.credential);
+    } else {
+        console.log("❌ User is NOT signed in.");
+    }
 }
 
 function handleCredentialResponse(response) {
