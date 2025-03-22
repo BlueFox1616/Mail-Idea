@@ -56,9 +56,22 @@ function handleCredentialResponse(response) {
     if (response.credential) {
         console.log("✅ User successfully signed in!");
         console.log("🔑 Token:", response.credential);
+
+        // Fetch user info (optional)
+        fetchUserInfo(response.credential);
     } else {
         console.log("❌ Sign-in failed.");
     }
+}
+
+// Optional: Fetch user info from Google's API
+function fetchUserInfo(token) {
+    fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("👤 User Info:", data);
+        })
+        .catch(error => console.error("⚠️ Error fetching user info:", error));
 }
 
 // Call checkAuth when the page loads
