@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let myButton = document.querySelector("button");
   let myHeading = document.querySelector(".space_name");
   let originalText = myHeading.textContent; // Store original text
+  let effects = document.querySelector(".effects");
   const persistentSpace = " "; // Add a persistent space
 
   // Typing effect functions
@@ -97,6 +98,28 @@ document.addEventListener("DOMContentLoaded", () => {
       fullscreenIcon.classList.add("hide");
     }
   }
+  // Toggle the visibility of the '.effects' element when the '.plus_icon' is clicked
+  document.querySelector(".plus_icon").addEventListener("click", () => {
+    const effects = document.querySelector(".effects");
+    if (effects.classList.contains("hide")) {
+      effects.classList.remove("hide"); // Show the effects if they are hidden
+    } else {
+      effects.classList.add("hide"); // Hide the effects if they are visible
+    }
+  });
+
+  // Hide the '.effects' element when clicking anywhere on the page, except for the '.plus_icon'
+  document.querySelector("html").addEventListener("click", function (event) {
+    const effects = document.querySelector(".effects");
+
+    // If the target doesn't have the 'plus_icon' class, remove 'hide' from effects
+    if (
+      !event.target.classList.contains("plus_icon") &&
+      !event.target.classList.contains("dropdown-style")
+    ) {
+      effects.classList.add("hide");
+    }
+  });
 
   // Add event listeners to each div inside the flex-container
   emails.forEach((email) => {
