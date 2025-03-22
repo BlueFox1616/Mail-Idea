@@ -1,134 +1,149 @@
+const CLIENT_ID = "YOUR_CLIENT_ID";  // Replace with your actual Client ID
+const SCOPES = "https://www.googleapis.com/auth/gmail.readonly";
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Typing effect code
-  let emails = document.querySelectorAll(".flex-container > div"); // Select all div elements inside .flex-container
-  let myButton = document.querySelector("button");
-  let myHeading = document.querySelector(".space_name");
-  let originalText = myHeading.textContent; // Store original text
-  let effects = document.querySelector(".effects");
-  const persistentSpace = " "; // Add a persistent space
+    let signInButton = document.querySelector("#signInButton");
+    let changeUserButton = document.querySelector("#changeUser");
+    let spaceName = document.querySelector(".space_name");
+    let emails = document.querySelectorAll(".flex-container > div");
+    let effects = document.querySelector(".effects");
+    const persistentSpace = " ";
+    
+    let tokenClient;
 
-  // Typing effect functions
-  function setUserName() {
-    const myName = prompt("Please enter your name.");
-    if (myName) {
-      localStorage.setItem("name", myName);
-      startTypingEffect(persistentSpace + `Welcome, ${myName}`);
+    function initGoogleAuth() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: (response) => {
+                if (response.access_token) {
+                    console.log("Access Token:", response.access_token);
+                    fetchEmails(response.access_token);
+                } else {
+                    console.error("Authentication failed");
+                }
+            },
+        });
     }
-  }
 
-  function startTypingEffect(firstText) {
-    let i = persistentSpace.length,
-      offset = persistentSpace.length,
-      forwards = true,
-      speed = 70;
-    let skip_count = 0,
-      skip_delay = 15;
+    function fetchEmails(accessToken) {
+        fetch("https://www.googleapis.com/gmail/v1/users/me/messages", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        })
+        .then(response => response.json())
+        .then(data => console.log("Emails:", data))
+        .catch(error => console.error("Error fetching emails:", error));
+    }
 
-    let interval;
+    function startTypingEffect(firstText) {
+        let i = persistentSpace.length,
+            offset = persistentSpace.length,
+            forwards = true,
+            speed = 70;
+        let skip_count = 0,
+            skip_delay = 15;
+        let interval;
 
-    function type() {
-      if (forwards) {
-        if (offset >= firstText.length) {
-          skip_count++;
-          if (skip_count == skip_delay) {
-            forwards = false;
-            skip_count = 0;
-          }
+        function type() {
+            if (forwards) {
+                if (offset >= firstText.length) {
+                    skip_count++;
+                    if (skip_count == skip_delay) {
+                        forwards = false;
+                        skip_count = 0;
+                    }
+                }
+            } else {
+                if (offset > persistentSpace.length) {
+                } else {
+                    forwards = true;
+                    clearInterval(interval);
+                    startTypingOriginalText(persistentSpace + "News");
+                    return;
+                }
+            }
+
+            spaceName.textContent = firstText.substring(0, offset);
+
+            if (skip_count == 0) {
+                if (forwards) {
+                    offset++;
+                } else {
+                    offset--;
+                }
+            }
         }
-      } else {
-        if (offset > persistentSpace.length) {
+
+        interval = setInterval(type, speed);
+    }
+
+    function startTypingOriginalText(text) {
+        let i = persistentSpace.length;
+        let interval = setInterval(() => {
+            spaceName.textContent = text.substring(0, i);
+            i++;
+            if (i > text.length) {
+                clearInterval(interval);
+            }
+        }, 70);
+    }
+
+    function changeUserName() {
+        const myName = prompt("Please enter your name.");
+        if (myName) {
+            localStorage.setItem("name", myName);
+            startTypingEffect(persistentSpace + `Welcome, ${myName}`);
+        }
+    }
+
+    function expandMail(element) {
+        element.classList.add("ExpandedMail");
+        const fullscreenIcon = element.querySelector(".fullscreenicon");
+        if (fullscreenIcon) fullscreenIcon.classList.remove("hide");
+    }
+
+    function minimizeMail(element) {
+        element.classList.remove("ExpandedMail");
+        const fullscreenIcon = element.querySelector(".fullscreenicon");
+        if (fullscreenIcon) fullscreenIcon.classList.add("hide");
+    }
+
+    document.querySelector(".plus_icon").addEventListener("click", () => {
+        if (effects.classList.contains("hide")) {
+            effects.classList.remove("hide");
         } else {
-          forwards = true;
-          clearInterval(interval);
-          startTypingOriginalText(persistentSpace + originalText);
-          return;
+            effects.classList.add("hide");
         }
-      }
-
-      if (forwards) {
-        myHeading.textContent = firstText.substring(0, offset);
-      } else {
-        myHeading.textContent = firstText.substring(0, offset);
-      }
-
-      if (skip_count == 0) {
-        if (forwards) {
-          offset++;
-        } else {
-          offset--;
-        }
-      }
-    }
-
-    interval = setInterval(type, speed);
-  }
-
-  function startTypingOriginalText(text) {
-    let i = persistentSpace.length;
-    let interval = setInterval(() => {
-      myHeading.textContent = text.substring(0, i);
-      i++;
-      if (i > text.length) {
-        clearInterval(interval);
-      }
-    }, 70);
-  }
-
-  const storedName = localStorage.getItem("name");
-  if (storedName) {
-    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
-  } else {
-    startTypingOriginalText(persistentSpace + originalText);
-  }
-
-  myButton.addEventListener("click", setUserName);
-
-  function expandMail(element) {
-    element.classList.add("ExpandedMail");
-    const fullscreenIcon = element.querySelector(".fullscreenicon");
-    if (fullscreenIcon) {
-      fullscreenIcon.classList.remove("hide");
-    }
-  }
-
-  function minimizeMail(element) {
-    element.classList.remove("ExpandedMail");
-    const fullscreenIcon = element.querySelector(".fullscreenicon");
-    if (fullscreenIcon) {
-      fullscreenIcon.classList.add("hide");
-    }
-  }
-  // Toggle the visibility of the '.effects' element when the '.plus_icon' is clicked
-  document.querySelector(".plus_icon").addEventListener("click", () => {
-    const effects = document.querySelector(".effects");
-    if (effects.classList.contains("hide")) {
-      effects.classList.remove("hide"); // Show the effects if they are hidden
-    } else {
-      effects.classList.add("hide"); // Hide the effects if they are visible
-    }
-  });
-
-  // Hide the '.effects' element when clicking anywhere on the page, except for the '.plus_icon'
-  document.querySelector("html").addEventListener("click", function (event) {
-    const effects = document.querySelector(".effects");
-
-    // If the target doesn't have the 'plus_icon' class, remove 'hide' from effects
-    if (
-      !event.target.classList.contains("plus_icon") &&
-      !event.target.classList.contains("dropdown-style")
-    ) {
-      effects.classList.add("hide");
-    }
-  });
-
-  // Add event listeners to each div inside the flex-container
-  emails.forEach((email) => {
-    email.addEventListener("click", function () {
-      if (email.classList.contains("ExpandedMail")) {
-        minimizeMail(this);
-      } else {
-        expandMail(this);
-      }
     });
-  });
+
+    document.querySelector("html").addEventListener("click", function (event) {
+        if (!event.target.classList.contains("plus_icon") &&
+            !event.target.classList.contains("dropdown-style")) {
+            effects.classList.add("hide");
+        }
+    });
+
+    emails.forEach((email) => {
+        email.addEventListener("click", function () {
+            if (email.classList.contains("ExpandedMail")) {
+                minimizeMail(this);
+            } else {
+                expandMail(this);
+            }
+        });
+    });
+
+    signInButton.addEventListener("click", () => {
+        if (!tokenClient) initGoogleAuth();
+        tokenClient.requestAccessToken();
+    });
+
+    changeUserButton.addEventListener("click", changeUserName);
+
+    const storedName = localStorage.getItem("name");
+    if (storedName) {
+        startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
+    } else {
+        startTypingOriginalText(persistentSpace + "News");
+    }
 });
