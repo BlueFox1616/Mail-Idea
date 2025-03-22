@@ -1,88 +1,87 @@
- <!doctype html>
- <html lang="en-US">
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>My Mail App</title>
 
+    <!-- Stylesheet -->
+    <link href="styles/email.css" rel="stylesheet">
 
- <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <link href="styles/email.css" rel="stylesheet" />
-  <button>Change user</button>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-  rel="stylesheet"
-  />
-  <script src="scripts/main.js"></script>
- </head>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
 
- <body>
-  <div class="header">
-  <h1 class="space_name">News</h1>
-  </div>
+    <!-- JavaScript -->
+    <script defer src="scripts/main.js"></script>
+</head>
 
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="space_name">News</h1>
+        <button id="changeUser">Change User</button>
+        <button id="signInButton">Sign in with Google</button>
+    </div>
 
-  <p class="space_icons">
-  <span class="newspaper">🗞️</span><span class="receipt">🧾</span><span
-  class="you">🫵</span>
-  </p>
-  <div class="flex-container">
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  <div>
-  &nbsp;
-  <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-  </div>
-  </div>
-  <p class="plus_icon">+</p>
+    <!-- Icons -->
+    <p class="space_icons">
+        <span class="newspaper">🗞️</span>
+        <span class="receipt">🧾</span>
+        <span class="you">🫵</span>
+    </p>
 
+    <!-- Email List -->
+    <div class="flex-container">
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+        <div class="email">
+            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+        </div>
+    </div>
 
-  <div class="effects hide">
-  <div class="effect-holder">
-  <div class="dropdown-style big_box">
-  <div class="search_results">
-  <div class="effects">
-  <div class="effect-holder">
-  <!-- Search Box -->
-  <input
-  type="search"
-  class="dropdown-style search_box"
-  placeholder="Search"
-  aria-label="Search through site content"
-  />
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </body>
+    <!-- Plus Icon for Effects -->
+    <p class="plus_icon">+</p>
 
+    <!-- Effects Dropdown -->
+    <div class="effects hide">
+        <div class="effect-holder">
+            <div class="dropdown-style big_box">
+                <div class="search_results">
+                    <div class="effects">
+                        <div class="effect-holder">
+                            <!-- Search Box -->
+                            <input type="search" class="dropdown-style search_box" placeholder="Search" aria-label="Search through site content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
- </html>
+</body>
+</html>
