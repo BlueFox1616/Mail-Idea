@@ -1,7 +1,7 @@
 :root {
-    --yellowcream: #fdf1db;
+    --yellowcream: #f9edd7;
     --coalblack: #2d2a2a;
-    --lightcream: #fcf7ec;
+    --lightcream: #fcf6ec;
 }
 
 .space_name {
@@ -93,13 +93,104 @@ body {
 .you:hover {
     opacity: 1;
 }
+
 .hide {
     display: none;
 }
+
 .fullscreenicon {
     height: 2.5rem;
     position: relative;
     top: 0%;
     left: 50%;
     padding-right: 3rem;
+}
+
+.plus_icon {
+    font-size: 4rem;
+    font-family: "Myriad Pro";
+    color: var(--coalblack);
+    position: absolute;
+    bottom: 0%;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 4rem;
+    margin: 0;
+}
+
+.effect-holder {
+    height: auto;
+    width: 100%; /* Ensure the container takes full width */
+    max-width: 100%; /* Prevents overflow */
+    border-radius: 16px;
+    float: left;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url(image.png);
+}
+
+.dropdown-style {
+    width: 100%; /* Ensure it takes up the full width of the parent container */
+
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(33px);
+    background-blend-mode: overlay;
+    padding: 1rem; /* Ensure it has some internal space */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.dropdown-style > img {
+    width: 32px;
+    margin: 0 1rem 0 0;
+}
+
+.search_box {
+    font-size: 30px;
+    text-align: left;
+
+    margin: 0;
+    width: 100%; /* Ensure it stretches the container */
+    padding: 20px;
+    background-color: #e0e0e07d;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px rgb(0 0 0 / 10%);
+    color: rgba(45, 42, 42, 0.6);
+}
+
+.big_box {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: scroll;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    width: 50rem;
+
+    margin: 2rem;
+    border-radius: 30px;
+    padding: 1rem;
+    position: absolute;
+    background-color: #ffffff7d;
+    box-shadow: 0 10px 15px rgb(0 0 0 / 20%);
+}
+.search_box {
+    font-size: 30px;
+    text-align: left;
+    margin: 0;
+    width: 100%; /* Ensure it stretches the container */
+    padding: 20px;
+    background-color: #e0e0e07d;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px rgb(0 0 0 / 10%);
+    color: rgba(45, 42, 42, 0.6);
+
+    font-family: "Playfair Display", serif; /* Set Font*/
+    border: none; /* Remove Border */
+    outline: none; /*Removes outline border when clicked*/
+    -webkit-appearance: none; /*Remove default webkit styling (safari)*/
+    -moz-appearance: none; /*Remove default webkit styling (firefox)*/
 }
