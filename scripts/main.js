@@ -36,27 +36,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function checkAuth() {
+    console.log("🔄 Checking authentication...");
+
     google.accounts.id.initialize({
-        client_id: "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com",
+        client_id: "YOUR_CLIENT_ID",
         callback: handleCredentialResponse
     });
 
-    google.accounts.id.prompt(); // Triggers a One-Tap prompt
-
-    console.log("Checking authentication...");
+    google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            console.log("❌ User is NOT signed in.");
+        } else {
+            console.log("🟢 Sign-in prompt displayed.");
+        }
+    });
 }
 
 function handleCredentialResponse(response) {
     if (response.credential) {
-        console.log("✅ User is signed in:", response.credential);
+        console.log("✅ User successfully signed in!");
+        console.log("🔑 Token:", response.credential);
     } else {
-        console.log("❌ User is NOT signed in.");
+        console.log("❌ Sign-in failed.");
     }
 }
 
-function handleCredentialResponse(response) {
-    console.log("User is signed in:", response);
-}
+// Call checkAuth when the page loads
+checkAuth();
 
     function startTypingEffect(firstText) {
         let i = persistentSpace.length,
