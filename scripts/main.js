@@ -35,6 +35,25 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("Error fetching emails:", error));
     }
 
+    function checkAuth() {
+    google.accounts.id.initialize({
+        client_id: "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+    });
+
+    google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            console.log("User is NOT signed in.");
+        } else {
+            console.log("User is signed in.");
+        }
+    });
+}
+
+function handleCredentialResponse(response) {
+    console.log("User is signed in:", response);
+}
+
     function startTypingEffect(firstText) {
         let i = persistentSpace.length,
             offset = persistentSpace.length,
