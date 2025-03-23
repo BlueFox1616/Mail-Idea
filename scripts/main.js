@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("🔄 Checking authentication...");
 
     google.accounts.id.initialize({
-        client_id: "YOUR_CLIENT_ID",
+        client_id: "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com",
         callback: handleCredentialResponse
     });
 
