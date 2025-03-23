@@ -189,3 +189,5 @@ checkAuth();
         startTypingOriginalText(persistentSpace + "News");
     }
 });
+
+
