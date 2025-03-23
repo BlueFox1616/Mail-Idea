@@ -194,3 +194,14 @@ body {
     -webkit-appearance: none; /*Remove default webkit styling (safari)*/
     -moz-appearance: none; /*Remove default webkit styling (firefox)*/
 }
+.data {
+    display: none;
+}
+.g-signin2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-bottom: -50px;
+}
+
