@@ -1,68 +1,75 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>My Mail App</title>
 
     <!-- Stylesheet -->
-    <link href="styles/email.css" rel="stylesheet">
+    <link href="styles/email.css" rel="stylesheet" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Google Sign-In -->
-    <script src="https://apis.google.com/js/api.js"></script>
+    <meta
+      name="google-signin-client_id"
+      content="283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com"
+    />
+
+    <!-- Load gapi.auth2 first -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com">
 
     <!-- JavaScript -->
     <script defer src="scripts/main.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Header -->
     <div class="header">
-        <h1 class="space_name">News</h1>
-        <button id="changeUser">Change User</button>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      <h1 class="space_name">News</h1>
+      <button id="changeUser">Change User</button>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 
     <!-- Icons -->
     <p class="space_icons">
-        <span class="newspaper">🗞️</span>
-        <span class="receipt">🧾</span>
-        <span class="you">🫵</span>
+      <span class="newspaper">🗞️</span>
+      <span class="receipt">🧾</span>
+      <span class="you">🫵</span>
     </p>
 
     <!-- Email List -->
     <div class="flex-container">
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
-        <div class="email">
-            <img class="hide fullscreenicon" src="media/fullscreen.svg" />
-        </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
+      <div class="email">
+        <img class="hide fullscreenicon" src="media/fullscreen.svg" />
+      </div>
     </div>
 
     <!-- Plus Icon for Effects -->
@@ -70,19 +77,23 @@
 
     <!-- Effects Dropdown -->
     <div class="effects hide">
-        <div class="effect-holder">
-            <div class="dropdown-style big_box">
-                <div class="search_results">
-                    <div class="effects">
-                        <div class="effect-holder">
-                            <!-- Search Box -->
-                            <input type="search" class="dropdown-style search_box" placeholder="Search" aria-label="Search through site content">
-                        </div>
-                    </div>
-                </div>
+      <div class="effect-holder">
+        <div class="dropdown-style big_box">
+          <div class="search_results">
+            <div class="effects">
+              <div class="effect-holder">
+                <!-- Search Box -->
+                <input
+                  type="search"
+                  class="dropdown-style search_box"
+                  placeholder="Search"
+                  aria-label="Search through site content"
+                />
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>
