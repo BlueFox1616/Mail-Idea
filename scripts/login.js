@@ -24,7 +24,9 @@ function handleCredentialResponse(response) {
   // Show the user data and hide the sign-in button
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
+  setUserName();
 }
+
 
 // Sign out the user
 function signOut() {
