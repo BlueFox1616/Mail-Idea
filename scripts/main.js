@@ -1,4 +1,4 @@
-const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";  
+const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";
 const SCOPES = "https://www.googleapis.com/auth/gmail.readonly";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -74,16 +74,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function fetchUserInfo(accessToken) {
-        if (auth2.isSignedIn.get()) {
-  var profile = auth2.currentUser.get().getBasicProfile();
-  console.log('ID: ' + profile.getId());
-  console.log('Full Name: ' + profile.getName());
-  console.log('Given Name: ' + profile.getGivenName());
-  console.log('Family Name: ' + profile.getFamilyName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
-}
+    function fetchUserInfo(credential) {
+        // Using the new google.accounts API to get user info
+        const userInfo = google.accounts.id.getBasicProfile();
+        
+        console.log('ID: ' + userInfo.getId());
+        console.log('Full Name: ' + userInfo.getName());
+        console.log('Given Name: ' + userInfo.getGivenName());
+        console.log('Family Name: ' + userInfo.getFamilyName());
+        console.log('Image URL: ' + userInfo.getImageUrl());
+        console.log('Email: ' + userInfo.getEmail());
+        
+        // Use the fetched name in the typing effect
+        startTypingEffect(persistentSpace + `Welcome, ${userInfo.getName()}`);
+    }
 
     function startTypingEffect(firstText) {
         let i = persistentSpace.length,
@@ -198,3 +202,5 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("✅ Google API Loaded.");
         checkAuth();
     });
+
+});
