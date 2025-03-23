@@ -7,17 +7,29 @@ document.addEventListener("DOMContentLoaded", () => {
   let effects = document.querySelector(".effects");
   const persistentSpace = " "; // Add a persistent space
 
+  // Check if the user is logged in right now
+  google.accounts.id.initialize({
+    client_id: "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+
+  // Use `google.accounts.id.get()` to check if the user is logged in
+  google.accounts.id.get().then(function(response) {
+    if (response) {
+      // If a valid response is returned, the user is logged in
+      const storedName = localStorage.getItem("userName");
+
+      if (storedName) {
+        // Start the typing animation with the stored userName
+        startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
+      }
+    } else {
+      // If no valid response, trigger fallback to original text
+      startTypingOriginalText(persistentSpace + originalText);
+    }
+  });
+
   // Typing effect functions
-  const storedName = localStorage.getItem("userName");
-
-  // If userName is found in localStorage, use it for the typing animation
-  if (storedName) {
-    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
-  } else {
-    // If no userName is found, fallback to the original text
-    startTypingOriginalText(persistentSpace + originalText);
-  }
-
   function startTypingEffect(firstText) {
     let i = persistentSpace.length,
       offset = persistentSpace.length,
@@ -76,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 70);
   }
 
-  // Add event listener for setting user name
+  // Add event listener for setting user name (when user logs in)
   myButton.addEventListener("click", setUserName);
 
   // Expand and minimize email functions
@@ -131,5 +143,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
 
