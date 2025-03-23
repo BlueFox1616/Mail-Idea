@@ -198,4 +198,3 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("✅ Google API Loaded.");
         checkAuth();
     });
-});
