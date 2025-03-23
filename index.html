@@ -16,6 +16,8 @@
     <!-- Google Sign-In -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com">
 
     <!-- JavaScript -->
     <script defer src="scripts/main.js"></script>
@@ -26,7 +28,7 @@
     <div class="header">
         <h1 class="space_name">News</h1>
         <button id="changeUser">Change User</button>
-        <button id="signInButton">Sign in with Google</button>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 
     <!-- Icons -->
@@ -82,9 +84,6 @@
             </div>
         </div>
     </div>
-
-</body>
-</html>
 
 </body>
 </html>
