@@ -198,8 +198,9 @@ body {
     display: none;
 }
 .g-signin2 {
-    position: absolute;
-
-
+    position: fixed; /* Fixed positioning ensures it stays in place */
+    top: 20px; /* Adjust this to position the button vertically */
+    right: 20px; /* Adjust this to position the button horizontally */
+    z-index: 1000; /* Make sure it stays on top of other elements */
 }
 
