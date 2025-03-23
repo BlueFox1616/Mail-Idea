@@ -10,10 +10,10 @@
     <meta name="google-signin-client_id" content="609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
-    
-    <!-- Load Google API script first -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    
+
+    <!-- Load the new Google Identity Services (GIS) script -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <script src="scripts/main.js"></script>
     <script src="scripts/login.js"></script>
   </head>
@@ -24,7 +24,12 @@
 
     <h2 class="alert alert-primary">Sign In With Google Using JavaScript</h2>
 
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <!-- New Google Sign-In Button (using the new Google Identity Services) -->
+    <div id="g_id_onload"
+      data-client_id="609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com"
+      data-callback="onSignIn">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
 
     <div class="data">
       <p>Name</p>
@@ -74,4 +79,5 @@
     </div>
   </body>
 </html>
+
 
