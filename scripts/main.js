@@ -83,20 +83,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   myButton.addEventListener("click", setUserName);
 
+  // Google Sign-In integration
+  function startGoogleSignIn() {
+    gapi.load("auth2", function () {
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      gapi.auth2
+        .init({
+          client_id:
+            "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com",
+          cookiepolicy: "single_host_origin",
+          scope: "profile email",
+        })
+        .then(
+          function (auth2) {
+            // Sign-in is properly initialized
+            console.log("Google Auth initialized successfully");
+          },
+          function (error) {
+            console.error("Error initializing Google Auth:", error);
+          }
+        );
+    });
+  }
+
+  startGoogleSignIn(); // Initialize Google Sign-In
+
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log("ID: " + profile.getId());
+    console.log("Name: " + profile.getName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail());
+  }
+
   function expandMail(element) {
     element.classList.add("ExpandedMail");
     const fullscreenIcon = element.querySelector(".fullscreenicon");
     if (fullscreenIcon) {
       fullscreenIcon.classList.remove("hide");
     }
-  }
-
-  function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
 
   function minimizeMail(element) {
