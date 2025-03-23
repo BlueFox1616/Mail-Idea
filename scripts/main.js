@@ -9,13 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Typing effect functions
   function setUserName() {
-    const myName = prompt("Please enter your name.");
-    if (myName) {
-      localStorage.setItem("name", myName);
-      startTypingEffect(persistentSpace + `Welcome, ${myName}`);
-    }
-  }
+  const userName = localStorage.getItem("userName");
 
+  if (userName) {
+    startTypingEffect(persistentSpace + `Welcome, ${userName}`);
+  }
+}
   function startTypingEffect(firstText) {
     let i = persistentSpace.length,
       offset = persistentSpace.length,
