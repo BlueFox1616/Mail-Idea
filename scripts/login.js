@@ -1,32 +1,35 @@
-// New callback function using Google Identity Services
-function onSignIn(response) {
-  const user = response.credential;
-  const profile = jwt_decode(user);
+// This function will be called once the Google API client script has loaded
+function onGapiLoaded() {
+  google.accounts.id.initialize({
+    client_id: "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
 
-  // Display profile data
-  $("#name").text(profile.name);
-  $("#email").text(profile.email);
-  $("#image").attr("src", profile.picture);
+  google.accounts.id.renderButton(
+    document.querySelector(".g-signin2"),
+    { theme: "outline", size: "large" }  // Customize button appearance
+  );
+}
 
+// Handle the credential response received from Google Sign-In
+function handleCredentialResponse(response) {
+  const data = jwt_decode(response.credential);  // Decode the JWT token to get user info
+  console.log(data);  // Log the user data to the console
+
+  // Display user data on the page
+  $("#name").text(data.name);
+  $("#email").text(data.email);
+  $("#image").attr("src", data.picture);
+
+  // Show the user data and hide the sign-in button
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
 }
 
-// Decode the JWT response to get profile information
-function jwt_decode(token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-  return JSON.parse(jsonPayload);
+// Sign out the user
+function signOut() {
+  google.accounts.id.disableAutoSelect();  // Disable auto-select sign-in
+  $(".g-signin2").css("display", "block");  // Show the sign-in button again
+  $(".data").css("display", "none");  // Hide the user data
 }
 
-function signOut() {
-  google.accounts.id.disableAutoSelect();
-  google.accounts.id.revoke('YOUR_CLIENT_ID', function() {
-    alert("You have been signed out successfully");
-    $(".g-signin2").css("display", "block");
-    $(".data").css("display", "none");
-  });
-}
