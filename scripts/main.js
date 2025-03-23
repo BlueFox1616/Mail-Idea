@@ -74,11 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function fetchUserInfo(token) {
-        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`)
+    function fetchUserInfo(accessToken) {
+        fetch("https://people.googleapis.com/v1/people/me?personFields=names", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        })
             .then(response => response.json())
             .then(data => {
-                console.log("👤 User Info:", data);
+                console.log("👤 User Name:", data.names[0].displayName);
             })
             .catch(error => console.error("⚠️ Error fetching user info:", error));
     }
@@ -134,8 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearInterval(interval);
             }
         }, 70);
-    }
-
+    }    
+        
     function changeUserName() {
         const myName = prompt("Please enter your name.");
         if (myName) {
