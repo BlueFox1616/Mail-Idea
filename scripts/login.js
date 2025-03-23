@@ -14,6 +14,7 @@ function onGapiLoaded() {
 function handleCredentialResponse(response) {
   const data = jwt_decode(response.credential);  // Decode the JWT token to get user info
   console.log(data);  // Log the user data to the console
+  localStorage.setItem("userName", data.name);
 
   // Display user data on the page
   $("#name").text(data.name);
