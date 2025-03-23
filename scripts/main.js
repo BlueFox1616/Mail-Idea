@@ -74,16 +74,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function fetchUserInfo(accessToken) {
-        fetch("https://people.googleapis.com/v1/people/me?personFields=names", {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("👤 User Name:", data.name);
-            })
-            .catch(error => console.error("⚠️ Error fetching user info:", error));
-    }
+   function fetchUserInfo(accessToken) {
+    fetch("https://people.googleapis.com/v1/people/me?personFields=names", {
+        headers: { Authorization: `Bearer ${accessToken}` }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("👤 Full User Info:", data); // Log the entire data to inspect its structure
+        if (data.names && data.names.length > 0) {
+            const userName = data.names[0].displayName; // Access the first name
+            console.log("👤 User Name:", userName);
+        } else {
+            console.error("❌ Name not found in the response");
+        }
+    })
+    .catch(error => console.error("⚠️ Error fetching user info:", error));
+}
 
     function startTypingEffect(firstText) {
         let i = persistentSpace.length,
