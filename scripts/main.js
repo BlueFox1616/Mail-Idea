@@ -75,15 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function fetchUserInfo(accessToken) {
-        fetch("https://people.googleapis.com/v1/people/me?personFields=names", {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("👤 User Name:", data.name);
-            })
-            .catch(error => console.error("⚠️ Error fetching user info:", error));
-    }
+        if (auth2.isSignedIn.get()) {
+  var profile = auth2.currentUser.get().getBasicProfile();
+  console.log('ID: ' + profile.getId());
+  console.log('Full Name: ' + profile.getName());
+  console.log('Given Name: ' + profile.getGivenName());
+  console.log('Family Name: ' + profile.getFamilyName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+}
 
     function startTypingEffect(firstText) {
         let i = persistentSpace.length,
