@@ -16,7 +16,7 @@
 
     <!-- Load Google API client script (using the new Google Identity Services) -->
     <script src="https://accounts.google.com/gsi/client" async defer onload="onGapiLoaded()"></script>
-    
+
     <!-- Your custom scripts -->
     <script src="scripts/main.js"></script>
     <script src="scripts/login.js"></script>
@@ -28,75 +28,49 @@
 
     <!-- Google Sign-In Button -->
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <div class="header hide">
-  <h1 class="space_name">News</h1>
-  </div>
 
+    <!-- Header Section -->
+    <div class="header">
+      <h1 class="space_name">News</h1>
+    </div>
 
-    
+    <!-- Icons Section -->
+    <p class="space_icons">
+      <span class="newspaper">🗞️</span><span class="receipt">🧾</span><span class="you">🫵</span>
+    </p>
 
+    <!-- Flex Container with Icons -->
+    <div class="flex-container">
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+      <div>&nbsp;<img class="hide fullscreenicon" src="media/fullscreen.svg" /></div>
+    </div>
 
- <p class="space_icons">
- <span class="newspaper">🗞️</span><span class="receipt">🧾</span><span
- class="you">🫵</span>
- </p>
- <div class="flex-container hide">
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- <div>
- &nbsp;
- <img class="hide fullscreenicon" src="media/fullscreen.svg" />
- </div>
- </div>
- <p class="plus_icon">+</p>
+    <!-- Plus Icon -->
+    <p class="plus_icon">+</p>
 
-
- <div class="effects hide">
- <div class="effect-holder">
- <div class="dropdown-style big_box">
- <div class="search_results">
- <div class="effects">
- <div class="effect-holder">
- <!-- Search Box -->
- <input
- type="search"
- class="dropdown-style search_box"
- placeholder="Search"
- aria-label="Search through site content"
- />
- </div>
- </div>
- </div>
- </div>
- </div>
- <script src="scripts/main.js"></script>
-</body>
+    <!-- Effects Section (Search Box) -->
+    <div class="effects hide">
+      <div class="effect-holder">
+        <div class="dropdown-style big_box">
+          <div class="search_results">
+            <div class="effects">
+              <div class="effect-holder">
+                <!-- Search Box -->
+                <input type="search" class="dropdown-style search_box" placeholder="Search" aria-label="Search through site content" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
 
 
 </html>
