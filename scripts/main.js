@@ -1,5 +1,5 @@
 const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";
-const SCOPES = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/profile";  // Corrected scope
+const SCOPES = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/profile";
 
 document.addEventListener("DOMContentLoaded", () => {
     let signInButton = document.querySelector("#signInButton");
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let emails = document.querySelectorAll(".flex-container > div");
     let effects = document.querySelector(".effects");
     const persistentSpace = " ";
-    
+
     let tokenClient;
 
     // Load Google API script dynamically
@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
             callback: handleCredentialResponse
         });
 
+        console.log("🟢 Triggering sign-in prompt...");
         google.accounts.id.prompt((notification) => {
             if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
                 console.log("❌ User is NOT signed in.");
@@ -86,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("👤 Full User Info:", data);  // Log the full response
+            console.log("👤 Full User Info:", data);
             if (data.error) {
                 console.error("❌ Error fetching user info:", data.error);
                 return;
@@ -166,20 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Expand email functionality
-    function expandMail(element) {
-        element.classList.add("ExpandedMail");
-        const fullscreenIcon = element.querySelector(".fullscreenicon");
-        if (fullscreenIcon) fullscreenIcon.classList.remove("hide");
-    }
-
-    // Minimize email functionality
-    function minimizeMail(element) {
-        element.classList.remove("ExpandedMail");
-        const fullscreenIcon = element.querySelector(".fullscreenicon");
-        if (fullscreenIcon) fullscreenIcon.classList.add("hide");
-    }
-
     // Show/hide effects
     document.querySelector(".plus_icon").addEventListener("click", () => {
         effects.classList.toggle("hide");
@@ -192,36 +179,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Toggle mail expand/collapse
-    emails.forEach((email) => {
-        email.addEventListener("click", function () {
-            if (email.classList.contains("ExpandedMail")) {
-                minimizeMail(this);
-            } else {
-                expandMail(this);
-            }
-        });
-    });
-
-    // Sign in button click handler
+    // Trigger sign-in on button click
     signInButton.addEventListener("click", () => {
-        if (!tokenClient) initGoogleAuth();
-        tokenClient.requestAccessToken();
+        if (!tokenClient) {
+            initGoogleAuth();
+        }
+        google.accounts.id.prompt();
     });
-
-    // Change user name
-    changeUserButton.addEventListener("click", changeUserName);
 
     // Handle stored user name on page load
     const storedName = localStorage.getItem("name");
     if (storedName) {
-        startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
-    } else {
-        startTypingOriginalText(persistentSpace + "News");
-    }
+        startTypingEffect(persistentSpace
 
-    // ✅ Load Google API first, then check authentication
-    loadGoogleAPI(() => {
-        console.log("✅ Google API Loaded.");
-    });
-});
