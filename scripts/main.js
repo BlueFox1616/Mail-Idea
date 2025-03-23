@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const persistentSpace = " "; // Add a persistent space
 
   // Typing effect functions
-  function setUserName() {
-  const userName = localStorage.getItem("userName");
-
-  if (userName) {
-    startTypingEffect(persistentSpace + `Welcome, ${userName}`);
+  const storedName = localStorage.getItem("userName");
+  if (storedName) {
+    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
+  } else {
+    startTypingOriginalText(persistentSpace + originalText);
   }
-}
+
   function startTypingEffect(firstText) {
     let i = persistentSpace.length,
       offset = persistentSpace.length,
@@ -73,15 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 70);
   }
 
-  const storedName = localStorage.getItem("name");
-  if (storedName) {
-    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
-  } else {
-    startTypingOriginalText(persistentSpace + originalText);
-  }
-
+  // Add event listener for setting user name
   myButton.addEventListener("click", setUserName);
 
+  // Expand and minimize email functions
   function expandMail(element) {
     element.classList.add("ExpandedMail");
     const fullscreenIcon = element.querySelector(".fullscreenicon");
@@ -97,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       fullscreenIcon.classList.add("hide");
     }
   }
+
   // Toggle the visibility of the '.effects' element when the '.plus_icon' is clicked
   document.querySelector(".plus_icon").addEventListener("click", () => {
     const effects = document.querySelector(".effects");
@@ -131,5 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
+});  // <-- This was missing
+
 
