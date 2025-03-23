@@ -1,6 +1,5 @@
-const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";  
-const SCOPES = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/plus.login";
-
+const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";
+const SCOPES = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/profile";  // Corrected scope
 
 document.addEventListener("DOMContentLoaded", () => {
     let signInButton = document.querySelector("#signInButton");
@@ -12,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let tokenClient;
 
+    // Load Google API script dynamically
     function loadGoogleAPI(callback) {
         const script = document.createElement("script");
         script.src = "https://accounts.google.com/gsi/client";
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.head.appendChild(script);
     }
 
+    // Initialize Google authentication client
     function initGoogleAuth() {
         tokenClient = google.accounts.oauth2.initTokenClient({
             client_id: CLIENT_ID,
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Fetch emails using Gmail API
     function fetchEmails(accessToken) {
         fetch("https://www.googleapis.com/gmail/v1/users/me/messages", {
             headers: { Authorization: `Bearer ${accessToken}` }
@@ -43,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("⚠️ Error fetching emails:", error));
     }
 
+    // Check authentication and initialize Google login prompt
     function checkAuth() {
         console.log("🔄 Checking authentication...");
 
@@ -65,40 +68,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Handle the credential response after sign-in
     function handleCredentialResponse(response) {
         if (response.credential) {
             console.log("✅ User successfully signed in!");
             console.log("🔑 Token:", response.credential);
-            fetchUserInfo(response.credential);
+            fetchUserInfo(response.credential);  // Fetch user info after login
         } else {
             console.log("❌ Sign-in failed.");
         }
     }
 
-   function fetchUserInfo(accessToken) {
-    fetch("https://people.googleapis.com/v1/people/me?personFields=names", {
-        headers: { Authorization: `Bearer ${accessToken}` }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("👤 Full User Info:", data); // Log the entire data to inspect its structure
-        if (data.names && data.names.length > 0) {
-            const userName = data.names[0].displayName; // Access the first name
-            console.log("👤 User Name:", userName);
-        } else {
-            console.error("❌ Name not found in the response");
-        }
-    })
-    .catch(error => console.error("⚠️ Error fetching user info:", error));
-}
+    // Fetch user profile info
+    function fetchUserInfo(accessToken) {
+        fetch("https://people.googleapis.com/v1/people/me?personFields=names", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("👤 Full User Info:", data);  // Log the full response
+            if (data.error) {
+                console.error("❌ Error fetching user info:", data.error);
+                return;
+            }
+            if (data.names && data.names.length > 0) {
+                const userName = data.names[0].displayName;
+                console.log("👤 User Name:", userName);
+                startTypingEffect(persistentSpace + `Welcome, ${userName}`);
+            } else {
+                console.error("❌ No names found in the response.");
+            }
+        })
+        .catch(error => console.error("⚠️ Error fetching user info:", error));
+    }
 
+    // Typing effect for user name
     function startTypingEffect(firstText) {
-        let i = persistentSpace.length,
-            offset = persistentSpace.length,
-            forwards = true,
-            speed = 70;
-        let skip_count = 0,
-            skip_delay = 15;
+        let i = persistentSpace.length;
+        let offset = persistentSpace.length;
+        let forwards = true;
+        let speed = 70;
+        let skip_count = 0;
+        let skip_delay = 15;
         let interval;
 
         function type() {
@@ -134,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
         interval = setInterval(type, speed);
     }
 
+    // Start typing original text
     function startTypingOriginalText(text) {
         let i = persistentSpace.length;
         let interval = setInterval(() => {
@@ -143,8 +155,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearInterval(interval);
             }
         }, 70);
-    }    
-        
+    }
+
+    // Change username by prompt
     function changeUserName() {
         const myName = prompt("Please enter your name.");
         if (myName) {
@@ -153,18 +166,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Expand email functionality
     function expandMail(element) {
         element.classList.add("ExpandedMail");
         const fullscreenIcon = element.querySelector(".fullscreenicon");
         if (fullscreenIcon) fullscreenIcon.classList.remove("hide");
     }
 
+    // Minimize email functionality
     function minimizeMail(element) {
         element.classList.remove("ExpandedMail");
         const fullscreenIcon = element.querySelector(".fullscreenicon");
         if (fullscreenIcon) fullscreenIcon.classList.add("hide");
     }
 
+    // Show/hide effects
     document.querySelector(".plus_icon").addEventListener("click", () => {
         effects.classList.toggle("hide");
     });
@@ -176,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Toggle mail expand/collapse
     emails.forEach((email) => {
         email.addEventListener("click", function () {
             if (email.classList.contains("ExpandedMail")) {
@@ -186,13 +203,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Sign in button click handler
     signInButton.addEventListener("click", () => {
         if (!tokenClient) initGoogleAuth();
         tokenClient.requestAccessToken();
     });
 
+    // Change user name
     changeUserButton.addEventListener("click", changeUserName);
 
+    // Handle stored user name on page load
     const storedName = localStorage.getItem("name");
     if (storedName) {
         startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
@@ -203,6 +223,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // ✅ Load Google API first, then check authentication
     loadGoogleAPI(() => {
         console.log("✅ Google API Loaded.");
-        checkAuth();
     });
 });
