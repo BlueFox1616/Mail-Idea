@@ -51,11 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
   google.accounts.id.initialize({
     client_id: "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
     callback: handleCredentialResponse,
-  });
 
-  google.accounts.id.renderButton(document.querySelector(".g-signin2"), {
-    theme: "outline",
-    size: "large",
+
+
   });
 });
 
