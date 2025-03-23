@@ -9,9 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Typing effect functions
   const storedName = localStorage.getItem("userName");
+
+  // If userName is found in localStorage, use it for the typing animation
   if (storedName) {
     startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
   } else {
+    // If no userName is found, fallback to the original text
     startTypingOriginalText(persistentSpace + originalText);
   }
 
@@ -127,6 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});  // <-- This was missing
+});
 
 
