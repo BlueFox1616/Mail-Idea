@@ -8,14 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const persistentSpace = " "; // Add a persistent space
 
   // Typing effect functions
-  const storedName = localStorage.getItem("userName");
-
-  // If userName is found in localStorage, use it for the typing animation
-  if (storedName) {
-    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
-  } else {
-    // If no userName is found, fallback to the original text
-    startTypingOriginalText(persistentSpace + originalText);
+  function setUserName() {
+    const myName = prompt("Please enter your name.");
+    if (myName) {
+      localStorage.setItem("name", myName);
+      startTypingEffect(persistentSpace + `Welcome, ${myName}`);
+    }
   }
 
   function startTypingEffect(firstText) {
@@ -76,10 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 70);
   }
 
-  // Add event listener for setting user name
+  const storedName = localStorage.getItem("name");
+  if (storedName) {
+    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
+  } else {
+    startTypingOriginalText(persistentSpace + originalText);
+  }
+
   myButton.addEventListener("click", setUserName);
 
-  // Expand and minimize email functions
   function expandMail(element) {
     element.classList.add("ExpandedMail");
     const fullscreenIcon = element.querySelector(".fullscreenicon");
@@ -95,13 +98,12 @@ document.addEventListener("DOMContentLoaded", () => {
       fullscreenIcon.classList.add("hide");
     }
   }
-
   // Toggle the visibility of the '.effects' element when the '.plus_icon' is clicked
   document.querySelector(".plus_icon").addEventListener("click", () => {
     const effects = document.querySelector(".effects");
     if (effects.classList.contains("hide")) {
       effects.classList.remove("hide");
-      document.querySelector(".search_box").focus(); // Show the effects if they are hidden
+      document.getElementsByClassName("search_box ").focus(); // Show the effects if they are hidden
     } else {
       effects.classList.add("hide"); // Hide the effects if they are visible
     }
@@ -130,3 +132,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+});
