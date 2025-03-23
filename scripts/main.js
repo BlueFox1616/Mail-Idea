@@ -1,4 +1,4 @@
-const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";  // Replace with your actual Client ID
+const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";  
 const SCOPES = "https://www.googleapis.com/auth/gmail.readonly";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,16 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let tokenClient;
 
+    function loadGoogleAPI(callback) {
+        const script = document.createElement("script");
+        script.src = "https://accounts.google.com/gsi/client";
+        script.onload = callback;
+        document.head.appendChild(script);
+    }
+
     function initGoogleAuth() {
         tokenClient = google.accounts.oauth2.initTokenClient({
             client_id: CLIENT_ID,
             scope: SCOPES,
             callback: (response) => {
                 if (response.access_token) {
-                    console.log("Access Token:", response.access_token);
+                    console.log("✅ Access Token:", response.access_token);
                     fetchEmails(response.access_token);
                 } else {
-                    console.error("Authentication failed");
+                    console.error("❌ Authentication failed");
                 }
             },
         });
@@ -31,51 +38,50 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: { Authorization: `Bearer ${accessToken}` }
         })
         .then(response => response.json())
-        .then(data => console.log("Emails:", data))
-        .catch(error => console.error("Error fetching emails:", error));
+        .then(data => console.log("📩 Emails:", data))
+        .catch(error => console.error("⚠️ Error fetching emails:", error));
     }
 
     function checkAuth() {
-    console.log("🔄 Checking authentication...");
+        console.log("🔄 Checking authentication...");
 
-    google.accounts.id.initialize({
-        client_id: CLIENT_ID,
-        callback: handleCredentialResponse
-    });
-
-    google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            console.log("❌ User is NOT signed in.");
-        } else {
-            console.log("🟢 Sign-in prompt displayed.");
+        if (typeof google === "undefined") {
+            console.error("⚠️ Google API not loaded yet.");
+            return;
         }
-    });
-}
 
-function handleCredentialResponse(response) {
-    if (response.credential) {
-        console.log("✅ User successfully signed in!");
-        console.log("🔑 Token:", response.credential);
+        google.accounts.id.initialize({
+            client_id: CLIENT_ID,
+            callback: handleCredentialResponse
+        });
 
-        // Fetch user info (optional)
-        fetchUserInfo(response.credential);
-    } else {
-        console.log("❌ Sign-in failed.");
+        google.accounts.id.prompt((notification) => {
+            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                console.log("❌ User is NOT signed in.");
+            } else {
+                console.log("🟢 Sign-in prompt displayed.");
+            }
+        });
     }
-}
 
-// Optional: Fetch user info from Google's API
-function fetchUserInfo(token) {
-    fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log("👤 User Info:", data);
-        })
-        .catch(error => console.error("⚠️ Error fetching user info:", error));
-}
+    function handleCredentialResponse(response) {
+        if (response.credential) {
+            console.log("✅ User successfully signed in!");
+            console.log("🔑 Token:", response.credential);
+            fetchUserInfo(response.credential);
+        } else {
+            console.log("❌ Sign-in failed.");
+        }
+    }
 
-// Call checkAuth when the page loads
-checkAuth();
+    function fetchUserInfo(token) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("👤 User Info:", data);
+            })
+            .catch(error => console.error("⚠️ Error fetching user info:", error));
+    }
 
     function startTypingEffect(firstText) {
         let i = persistentSpace.length,
@@ -151,14 +157,10 @@ checkAuth();
     }
 
     document.querySelector(".plus_icon").addEventListener("click", () => {
-        if (effects.classList.contains("hide")) {
-            effects.classList.remove("hide");
-        } else {
-            effects.classList.add("hide");
-        }
+        effects.classList.toggle("hide");
     });
 
-    document.querySelector("html").addEventListener("click", function (event) {
+    document.querySelector("html").addEventListener("click", (event) => {
         if (!event.target.classList.contains("plus_icon") &&
             !event.target.classList.contains("dropdown-style")) {
             effects.classList.add("hide");
@@ -188,7 +190,10 @@ checkAuth();
     } else {
         startTypingOriginalText(persistentSpace + "News");
     }
+
+    // ✅ Load Google API first, then check authentication
+    loadGoogleAPI(() => {
+        console.log("✅ Google API Loaded.");
+        checkAuth();
+    });
 });
-
-
-
