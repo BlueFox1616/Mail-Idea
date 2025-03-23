@@ -1,3 +1,12 @@
+// Ensure that the Google API is loaded before using it
+gapi.load('auth2', function() {
+  gapi.auth2.init({
+    client_id: '609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com'
+  }).then(function() {
+    console.log('Google API loaded and initialized');
+  });
+});
+
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile(); // Fixed missing `=`
 
