@@ -1,27 +1,30 @@
-// Ensure that the Google API is loaded before using it
-gapi.load('auth2', function() {
-  gapi.auth2.init({
-    client_id: '609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com'
-  }).then(function() {
-    console.log('Google API loaded and initialized');
-  });
-});
+// New callback function using Google Identity Services
+function onSignIn(response) {
+  const user = response.credential;
+  const profile = jwt_decode(user);
 
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile(); // Fixed missing `=`
-
-  $("#name").text(profile.getName());
-  $("#email").text(profile.getEmail());
-  $("#image").attr("src", profile.getImageUrl());
+  // Display profile data
+  $("#name").text(profile.name);
+  $("#email").text(profile.email);
+  $("#image").attr("src", profile.picture);
 
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
 }
 
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance(); // Fixed missing `=`
+// Decode the JWT response to get profile information
+function jwt_decode(token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return JSON.parse(jsonPayload);
+}
 
-  auth2.signOut().then(function () {
+function signOut() {
+  google.accounts.id.disableAutoSelect();
+  google.accounts.id.revoke('YOUR_CLIENT_ID', function() {
     alert("You have been signed out successfully");
     $(".g-signin2").css("display", "block");
     $(".data").css("display", "none");
