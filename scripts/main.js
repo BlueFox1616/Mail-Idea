@@ -1,18 +1,29 @@
-// typingAnimation.js
 document.addEventListener("DOMContentLoaded", () => {
-  let emails = document.querySelectorAll(".flex-container > div");
+  // Typing effect code
+  let emails = document.querySelectorAll(".flex-container > div"); // Select all div elements inside .flex-container
+  let myButton = document.querySelector("button");
   let myHeading = document.querySelector(".space_name");
   let originalText = myHeading.textContent; // Store original text
-  const persistentSpace = " "; // Persistent space for typing effect
+  let effects = document.querySelector(".effects");
+  const persistentSpace = " "; // Add a persistent space
 
   // Typing effect functions
+  function setUserName() {
+    const myName = prompt("Please enter your name.");
+    if (myName) {
+      localStorage.setItem("name", myName);
+      startTypingEffect(persistentSpace + `Welcome, ${myName}`);
+    }
+  }
+
   function startTypingEffect(firstText) {
-    let i = persistentSpace.length;
-    let offset = persistentSpace.length;
-    let forwards = true;
-    let speed = 70;
-    let skip_count = 0;
-    let skip_delay = 15;
+    let i = persistentSpace.length,
+      offset = persistentSpace.length,
+      forwards = true,
+      speed = 70;
+    let skip_count = 0,
+      skip_delay = 15;
+
     let interval;
 
     function type() {
@@ -63,15 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 70);
   }
 
-  // Get the user's name from localStorage and start the typing effect
-  const storedName = localStorage.getItem("userName");
+  const storedName = localStorage.getItem("name");
   if (storedName) {
     startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
   } else {
     startTypingOriginalText(persistentSpace + originalText);
   }
 
-  // Email interaction functions: Expand or minimize email
+  myButton.addEventListener("click", setUserName);
+
   function expandMail(element) {
     element.classList.add("ExpandedMail");
     const fullscreenIcon = element.querySelector(".fullscreenicon");
@@ -87,21 +98,22 @@ document.addEventListener("DOMContentLoaded", () => {
       fullscreenIcon.classList.add("hide");
     }
   }
-
-  // Toggle visibility of effects
+  // Toggle the visibility of the '.effects' element when the '.plus_icon' is clicked
   document.querySelector(".plus_icon").addEventListener("click", () => {
     const effects = document.querySelector(".effects");
     if (effects.classList.contains("hide")) {
       effects.classList.remove("hide");
+      document.querySelector(".search_box").focus(); // Show the effects if they are hidden
     } else {
-      effects.classList.add("hide");
+      effects.classList.add("hide"); // Hide the effects if they are visible
     }
   });
 
-  // Hide effects when clicking anywhere on the page except '.plus_icon'
+  // Hide the '.effects' element when clicking anywhere on the page, except for the '.plus_icon'
   document.querySelector("html").addEventListener("click", function (event) {
     const effects = document.querySelector(".effects");
 
+    // If the target doesn't have the 'plus_icon' class, remove 'hide' from effects
     if (
       !event.target.classList.contains("plus_icon") &&
       !event.target.classList.contains("dropdown-style")
