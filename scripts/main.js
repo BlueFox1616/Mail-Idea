@@ -1,5 +1,6 @@
 const CLIENT_ID = "283737755255-fc5ck2k8ign789aheeu51ncggfrsqg6s.apps.googleusercontent.com";  
-const SCOPES = "https://www.googleapis.com/auth/gmail.readonly";
+const SCOPES = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/plus.login";
+
 
 document.addEventListener("DOMContentLoaded", () => {
     let signInButton = document.querySelector("#signInButton");
