@@ -1,4 +1,3 @@
-// googleAuth.js
 document.addEventListener("DOMContentLoaded", () => {
   let googleAuthInitialized = false;
 
@@ -16,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             function (auth2) {
               googleAuthInitialized = true;
               console.log("Google Auth initialized successfully");
+              renderSignInButton(); // Ensure the button is rendered after initialization
             },
             function (error) {
               console.error("Error initializing Google Auth:", error);
@@ -24,12 +24,21 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } else {
       console.log("Google Auth already initialized");
+      renderSignInButton(); // Render button if already initialized
     }
+  }
+
+  function renderSignInButton() {
+    // Ensure the button is rendered on the page
+    google.accounts.id.renderButton(
+      document.querySelector(".g-signin2"), 
+      { theme: "outline", size: "large" }
+    );
   }
 
   startGoogleSignIn();
 
-  // Handle Google Sign-In response
+  // Handle the Google login response
   function handleCredentialResponse(response) {
     const data = jwt_decode(response.credential); // Decode JWT token to get user info
     console.log(data); // Log user data
@@ -47,13 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
     $(".g-signin2").css("display", "none");
   }
 
-  // Initialize Google Sign-In button
   google.accounts.id.initialize({
     client_id: "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
     callback: handleCredentialResponse,
-
-
-
   });
+
+  // Make sure the button is rendered when DOM is ready
+  renderSignInButton();
 });
+
 
