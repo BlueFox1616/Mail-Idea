@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log("👤 User Name:", data.name.displayName);
+                console.log("👤 User Name:", data.name);
             })
             .catch(error => console.error("⚠️ Error fetching user info:", error));
     }
