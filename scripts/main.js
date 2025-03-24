@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Typing effect code
   let emails = document.querySelectorAll(".flex-container > div"); // Select all div elements inside .flex-container
-  let myButton = document.querySelector("button");
+  let myButton = document.querySelector(".g-signin2");
   let myHeading = document.querySelector(".space_name");
   let originalText = myHeading.textContent; // Store original text
   let effects = document.querySelector(".effects");
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Typing effect functions
   function setUserName() {
-    const myName = prompt("Please enter your name.");
+    
     if (myName) {
       localStorage.setItem("userName", myName);
       startTypingEffect(persistentSpace + `Welcome, ${myName}`);
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 70);
   }
 
-  const storedName = localStorage.getItem("name");
+  const storedName = localStorage.getItem("userName");
   if (storedName) {
     startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
   } else {
