@@ -14,7 +14,7 @@ function handleCredentialResponse(response) {
   const data = jwt_decode(response.credential);  // Decode the JWT token to get user info
   console.log(data);  // Log the user data to the console
 
-  localStorage.setItem("userName", data.name);  // Store the user name in localStorage
+  localStorage.setItem("name", data.name);  // Store the user name in localStorage
 
   // Display user data on the page
   $("#name").text(data.name);
