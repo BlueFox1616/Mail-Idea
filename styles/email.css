@@ -169,7 +169,7 @@ body {
     top: 30%;
     transform: translate(-50%, -50%);
     width: 50rem;
-
+    gap: 10px;
     margin: 2rem;
     border-radius: 30px;
     padding: 1rem;
