@@ -65,7 +65,7 @@ body {
     text-align: center;
     min-height: 6rem; /* Set a minimum height for each item */
     flex-grow: 1;
-    min-height: 6rem;
+
     transition: min-height 0.3s ease-in-out;
 
     /* Allow items to grow */
