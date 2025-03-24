@@ -74,12 +74,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 70);
   }
 
-  const storedName = localStorage.getItem("userName");
-  if (storedName) {
-    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
+ function updateWelcomeMessage() {
+  const authInstance = gapi.auth2.getAuthInstance();
+  if (authInstance && authInstance.isSignedIn.get()) {
+    const userName = authInstance.currentUser.get().getBasicProfile().getName();
+    localStorage.setItem("userName", userName); // Update stored name
+    startTypingEffect(persistentSpace + `Welcome, ${userName}`);
   } else {
+    localStorage.removeItem("userName"); // Remove stored name when logged out
     startTypingOriginalText(persistentSpace + originalText);
   }
+}
+
+// Run this when the page loads
+gapi.load("auth2", () => {
+  gapi.auth2.init().then(updateWelcomeMessage);
+});
+
 
   myButton.addEventListener("click", setUserName);
 
