@@ -23,9 +23,7 @@ function handleCredentialResponse(response) {
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
   $(".search_result").css("display", "none");
-  location.reload();
-
-  setUserName();
+  startTypingEffect(firstText);
 }
 function triggerGoogleSignIn() {
   document.querySelector(".g-signin2").click(); // Simulate the click on the Google Sign-In button
