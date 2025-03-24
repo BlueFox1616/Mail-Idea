@@ -1,15 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Typing effect code
-  let emails = document.querySelectorAll(".flex-container > div"); // Select all div elements inside .flex-container
+  let emails = document.querySelectorAll(".flex-container > div");
   let myButton = document.querySelector(".g-signin2");
   let myHeading = document.querySelector(".space_name");
-  let originalText = myHeading.textContent; // Store original text
+  let originalText = myHeading ? myHeading.textContent : ''; // Ensure heading exists
   let effects = document.querySelector(".effects");
   const persistentSpace = " "; // Add a persistent space
 
+  // Debugging: Check if elements exist
+  console.log("myButton:", myButton);
+  console.log("myHeading:", myHeading);
+
   // Typing effect functions
   function setUserName() {
-    
+    const myName = localStorage.getItem("userName");
     if (myName) {
       localStorage.setItem("userName", myName);
       startTypingEffect(persistentSpace + `Welcome, ${myName}`);
@@ -18,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startTypingEffect(firstText) {
     let i = persistentSpace.length,
-      offset = persistentSpace.length,
-      forwards = true,
-      speed = 70;
+        offset = persistentSpace.length,
+        forwards = true,
+        speed = 70;
     let skip_count = 0,
-      skip_delay = 15;
+        skip_delay = 15;
 
     let interval;
 
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (forwards) {
         if (offset >= firstText.length) {
           skip_count++;
-          if (skip_count == skip_delay) {
+          if (skip_count === skip_delay) {
             forwards = false;
             skip_count = 0;
           }
@@ -51,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         myHeading.textContent = firstText.substring(0, offset);
       }
 
-      if (skip_count == 0) {
+      if (skip_count === 0) {
         if (forwards) {
           offset++;
         } else {
@@ -74,16 +78,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 70);
   }
 
-const storedName = localStorage.getItem("userName");
-if (storedName) {
-  startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
-} else {
-  startTypingOriginalText(persistentSpace + originalText);
-}
+  const storedName = localStorage.getItem("userName");
+  if (storedName) {
+    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
+  } else {
+    startTypingOriginalText(persistentSpace + originalText);
+  }
 
+  if (myButton) {
+    myButton.addEventListener("click", setUserName);
+  }
 
-  myButton.addEventListener("click", setUserName);
-
+  // Mail expand/collapse logic
   function expandMail(element) {
     element.classList.add("ExpandedMail");
     const fullscreenIcon = element.querySelector(".fullscreenicon");
@@ -99,22 +105,22 @@ if (storedName) {
       fullscreenIcon.classList.add("hide");
     }
   }
-  // Toggle the visibility of the '.effects' element when the '.plus_icon' is clicked
+
+  // Toggle the visibility of the '.effects' element
   document.querySelector(".plus_icon").addEventListener("click", () => {
     const effects = document.querySelector(".effects");
     if (effects.classList.contains("hide")) {
       effects.classList.remove("hide");
-      document.getElementsByClassName("search_box ").focus(); // Show the effects if they are hidden
+      document.getElementsByClassName("search_box")[0].focus(); // Show the effects if they are hidden
     } else {
       effects.classList.add("hide"); // Hide the effects if they are visible
     }
   });
 
-  // Hide the '.effects' element when clicking anywhere on the page, except for the '.plus_icon'
+  // Hide the '.effects' element when clicking anywhere on the page
   document.querySelector("html").addEventListener("click", function (event) {
     const effects = document.querySelector(".effects");
 
-    // If the target doesn't have the 'plus_icon' class, remove 'hide' from effects
     if (
       !event.target.classList.contains("plus_icon") &&
       !event.target.classList.contains("dropdown-style")
