@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function setUserName() {
     const myName = prompt("Please enter your name.");
     if (myName) {
-      localStorage.setItem("name", myName);
+      localStorage.setItem("userName", myName);
       startTypingEffect(persistentSpace + `Welcome, ${myName}`);
     }
   }
