@@ -20,6 +20,7 @@
     font-family: "Apple Color Emoji";
     line-height: 1.2;
     letter-spacing: 2.5rem; /* 40px */
+    padding: 1rem;
 }
 
 h1 {
@@ -55,7 +56,9 @@ body {
     align-items: stretch;
     gap: 10px;
     padding: 12px;
-    overflow: scroll;
+
+    overflow-y: scroll; /* Enable vertical scrolling */
+    overflow-x: hidden;
 }
 
 .flex-container > div {
