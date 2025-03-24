@@ -169,8 +169,7 @@ body {
     top: 30%;
     transform: translate(-50%, -50%);
     width: 50rem;
-    height: 30rem;
-    gap: 10px;
+    column-gap: 10px;
     margin: 2rem;
     border-radius: 30px;
     padding: 1rem;
@@ -198,12 +197,12 @@ body {
 .data {
     display: none;
 }
-/*.search_results {
+.search_results {
     margin: 0;
     width: 100%; /* Ensure it stretches the container */
- /*padding: 20px;
+    padding: 20px;
     background-color: #e0e0e07d;
     border-radius: 12px;
     box-shadow: 0 10px 15px rgb(0 0 0 / 10%);
-    color: rgba(45, 42, 42, 0.6);*/
+    color: rgba(45, 42, 42, 0.6);
 }
