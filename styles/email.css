@@ -169,7 +169,7 @@ body {
     top: 30%;
     transform: translate(-50%, -50%);
     width: 50rem;
-    column-gap: 10px;
+
     margin: 2rem;
     border-radius: 30px;
     padding: 1rem;
@@ -199,8 +199,7 @@ body {
 }
 .search_results {
     margin: 0;
-    width: 100%; /* Ensure it stretches the container */
-    padding: 20px;
+
     background-color: #e0e0e07d;
     border-radius: 12px;
     box-shadow: 0 10px 15px rgb(0 0 0 / 10%);
