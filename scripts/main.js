@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let emails = document.querySelectorAll(".flex-container > div");
   let myButton = document.querySelector(".g-signin2");
   let myHeading = document.querySelector(".space_name");
-  let originalText = myHeading ? myHeading.textContent : ''; // Ensure heading exists
+  let originalText = myHeading ? myHeading.textContent : ""; // Ensure heading exists
   let effects = document.querySelector(".effects");
   const persistentSpace = " "; // Add a persistent space
 
@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startTypingEffect(firstText) {
     let i = persistentSpace.length,
-        offset = persistentSpace.length,
-        forwards = true,
-        speed = 70;
+      offset = persistentSpace.length,
+      forwards = true,
+      speed = 70;
     let skip_count = 0,
-        skip_delay = 15;
+      skip_delay = 15;
 
     let interval;
 
@@ -123,7 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (
       !event.target.classList.contains("plus_icon") &&
-      !event.target.classList.contains("dropdown-style")
+      !event.target.closest(".dropdown-style") && // Fix: Use closest()
+      !event.target.classList.contains("g-signin2")
     ) {
       effects.classList.add("hide");
     }
