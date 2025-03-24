@@ -60,18 +60,23 @@
     <div class="effects hide">
       <div class="effect-holder">
         <div class="dropdown-style big_box">
+          <!-- Search Box -->
+          <input type="search" class="dropdown-style search_box" placeholder="Search" aria-label="Search through site content" />
+
+          <!-- New Div that will display under the search box -->
+          <div class="new_div_under_search_box">
+            <!-- Content that you want to show below the search box -->
+            <p>Here is the new div displaying under the search box.</p>
+          </div>
+
+          <!-- Existing Search Results Container -->
           <div class="search_results">
-            <div class="effects">
-              <div class="effect-holder">
-                <!-- Search Box -->
-                <input type="search" class="dropdown-style search_box" placeholder="Search" aria-label="Search through site content" />
-                <div class="search_result"></div>
-              </div>
-            </div>
+            <!-- Search results will be dynamically inserted here -->
           </div>
         </div>
       </div>
     </div>
+
   </body>
 </html>
 
