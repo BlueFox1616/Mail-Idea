@@ -18,13 +18,11 @@ function handleCredentialResponse(response) {
   localStorage.setItem("userName", data.name); // Store the user name in localStorage
 
   // Display user data on the page
-  $("#name").text(data.name);
-  $("#email").text(data.email);
-  $("#image").attr("src", data.picture);
 
   // Show the user data and hide the sign-in button
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
+  $(".search_result").css("display", "none");
 
   setUserName();
 }
