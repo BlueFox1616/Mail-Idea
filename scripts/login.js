@@ -1,14 +1,3 @@
-function onSignIn(googleUser) {
-  updateWelcomeMessage();
-}
-
-function onSignOut() {
-  google.accounts.id.disableAutoSelect();  // Disable auto-select sign-in
-  $(".g-signin2").css("display", "block");  // Show the sign-in button again
-  $(".data").css("display", "none");  // Hide the user data
-  updateWelcomeMessage();  // Update UI to reflect logout
-}
-
 function onGapiLoaded() {
   google.accounts.id.initialize({
     client_id: "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
@@ -36,16 +25,13 @@ function handleCredentialResponse(response) {
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
 
-  updateWelcomeMessage();
+  setUserName();
 }
 
-// Update welcome message based on login status
-function updateWelcomeMessage() {
-  const storedName = localStorage.getItem("userName");
-  if (storedName) {
-    startTypingEffect(persistentSpace + `Welcome, ${storedName}`);
-  } else {
-    localStorage.removeItem("userName");  // Remove stored name when logged out
-    startTypingOriginalText(persistentSpace + originalText);
-  }
+// Sign out the user
+function signOut() {
+  google.accounts.id.disableAutoSelect();  // Disable auto-select sign-in
+  $(".g-signin2").css("display", "block");  // Show the sign-in button again
+  $(".data").css("display", "none");  // Hide the user data
 }
+
