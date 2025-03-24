@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Typing effect code
   let emails = document.querySelectorAll(".flex-container > div");
-  let myButton = document.querySelector(".search_result");
+  let myButton = document.querySelector(".space_name");
   let myHeading = document.querySelector(".space_name");
   let originalText = myHeading ? myHeading.textContent : ""; // Ensure heading exists
   let effects = document.querySelector(".effects");
