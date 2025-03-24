@@ -14,6 +14,7 @@
     <!-- Add the jwt-decode script -->
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 
+
     <!-- Load Google API client script (using the new Google Identity Services) -->
     <script src="https://accounts.google.com/gsi/client" async defer onload="onGapiLoaded()"></script>
 
@@ -29,7 +30,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Google Sign-In Button -->
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
 
     <!-- Header Section -->
     <div class="header">
@@ -64,9 +65,9 @@
           <input type="search" class="dropdown-style search_box" placeholder="Search" aria-label="Search through site content" />
 
           <!-- New Div that will display under the search box -->
-          <div class="search_result">
+          <div id="result-div" class="search_result hidden-results">
             <!-- Content that you want to show below the search box -->
-            <p>Here is the new div displaying under the search box.</p>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
           </div>
 
           <!-- Existing Search Results Container -->
