@@ -23,6 +23,7 @@ function handleCredentialResponse(response) {
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
   $(".search_result").css("display", "none");
+  location.reload();
 
   setUserName();
 }
