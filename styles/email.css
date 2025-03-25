@@ -12,6 +12,7 @@
     text-align: center;
     text-shadow: 0px 0.8125rem 1.8125rem rgba(0, 0, 0, 0.18); /* 13px 29px */
     margin: 0;
+    padding-top: 1.35rem;
 }
 
 .space_icons {
@@ -19,8 +20,8 @@
     font-size: 1.875rem; /* 30px */
     font-family: "Apple Color Emoji";
     line-height: 1.2;
-    letter-spacing: 2.5rem; /* 40px */
-    padding: 1rem;
+    letter-spacing: 2.5rem;
+    padding-top: 3rem; /* 40px */
 }
 
 h1 {
@@ -47,8 +48,8 @@ body {
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    height: 60vh;
-    width: 70vw;
+    height: 62.5vh;
+    width: 71.5vw;
     box-shadow: 0px 0.8125rem 1.8125rem rgba(0, 0, 0, 0.18);
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
@@ -67,7 +68,7 @@ body {
     text-align: center;
     min-height: 6rem; /* Set a minimum height for each item */
     flex-grow: 1;
-
+    min-height: 8.5rem;
     transition: min-height 0.3s ease-in-out;
 
     /* Allow items to grow */
