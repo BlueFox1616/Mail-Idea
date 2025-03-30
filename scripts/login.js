@@ -17,7 +17,7 @@ function handleCredentialResponse(response) {
   console.log(data); // Log the user data to the console
 
   localStorage.setItem("userName", data.name);
-  localStorage.setItem("googleToken", response.credential); // Store the user name in localStorage
+  localStorage.setItem("google_token", response.credential); // Store the user name in localStorage
 
   // Display user data on the page
   $(".data").css("display", "block");
