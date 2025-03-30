@@ -15,22 +15,17 @@ function onGapiLoaded() {
   const storedToken = localStorage.getItem("googleToken");
 
   if (storedToken) {
-    try {
-      const userData = jwt_decode(storedToken);
-      console.log("✅ User is still logged in!", userData);
+    console.log("✅ User is still logged in!");
 
-      // Hide the sign-in button by adding the 'hide' class
-      document.querySelector('.g-signin2').classList.add("hide");
-    } catch (error) {
-      console.error("❌ Invalid or expired token", error);
-      localStorage.removeItem("googleToken");
-    }
+    // Hide the sign-in button by adding the 'hide' class
+    document.querySelector('.g-signin2').classList.add("hide");
   } else {
     console.log("❌ No session found, show login button");
 
     // Show the sign-in button by removing the 'hide' class
     document.querySelector('.g-signin2').classList.remove("hide");
   }
+
 
 function handleCredentialResponse(response) {
   if (!response.credential) {
