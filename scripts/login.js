@@ -30,7 +30,20 @@ function handleCredentialResponse(response) {
 function triggerGoogleSignIn() {
   document.querySelector(".g-signin2").click(); // Simulate the click on the Google Sign-In button
 }
+window.onload = function () {
+  const storedToken = localStorage.getItem("googleToken");
 
+  if (storedToken) {
+    console.log("✅ User is still logged in!");
+    $(".data").css("display", "block");
+    $(".g-signin2").css("display", "none");
+    $(".search_result").css("display", "none");
+  } else {
+    console.log("❌ No session found, show login button");
+    $(".g-signin2").css("display", "block");
+    $(".data").css("display", "none");
+  }
+};
 // Sign out the user
 function signOut() {
   google.accounts.id.disableAutoSelect(); // Disable auto-select sign-in
