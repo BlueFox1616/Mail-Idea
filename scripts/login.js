@@ -18,7 +18,7 @@ function onGapiLoaded() {
     console.log("✅ User is still logged in!");
 
     // Hide the sign-in button by adding the 'hide' class
-    document.querySelector('.g-signin2').classList.add("hide");
+
   } else {
     console.log("❌ No session found, show login button");
 
