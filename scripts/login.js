@@ -6,28 +6,47 @@ function onGapiLoaded() {
     auto_select: true,
   });
 
-  google.accounts.id.renderButton(
-    document.querySelector(".g-signin2"),
-    { theme: "outline", size: "large" }, // Customize button appearance
-  ); // Removed the trailing comma here
+  const signInButton = document.querySelector(".g-signin2");
+  if (signInButton) {
+    google.accounts.id.renderButton(signInButton, {
+      theme: "outline",
+      size: "large",
+    });
+  } else {
+    console.error("Sign-In button not found!");
+  }
 }
 
 function handleCredentialResponse(response) {
-  const data = jwt_decode(response.credential); // Decode the JWT token to get user info
-  console.log(data); // Log the user data to the console
+  try {
+    const data = jwt_decode(response.credential);
+    console.log(data); // Log the user data to the console
 
-  localStorage.setItem("userName", data.name);
-  localStorage.setItem("googleToken", response.credential); // Store the user name in localStorage
+    // Ensure the localStorage actions happen only when data is valid
+    if (data && data.name) {
+      localStorage.setItem("userName", data.name);
+      localStorage.setItem("googleToken", response.credential); // Store the Google token
 
-  // Display user data on the page
-  $(".data").css("display", "block");
-  $(".g-signin2").css("display", "none");
-  $(".search_result").css("display", "none");
-  startTypingEffect(firstText);
+      // Display user data on the page
+      $(".data").css("display", "block");
+      $(".g-signin2").css("display", "none");
+      $(".search_result").css("display", "none");
+      startTypingEffect(firstText);
+    } else {
+      console.error("Failed to decode user data:", data);
+    }
+  } catch (error) {
+    console.error("Error decoding the JWT token:", error);
+  }
 }
 
 function triggerGoogleSignIn() {
-  document.querySelector(".g-signin2").click(); // Simulate the click on the Google Sign-In button
+  const signInButton = document.querySelector(".g-signin2");
+  if (signInButton) {
+    signInButton.click();
+  } else {
+    console.error("Google Sign-In button not found!");
+  }
 }
 
 // Sign out the user
