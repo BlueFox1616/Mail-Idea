@@ -12,25 +12,7 @@ function onGapiLoaded() {
   });
 
   // Check if user is still logged in
-  const storedToken = localStorage.getItem("googleToken");
 
-  if (storedToken) {
-    console.log("✅ User is still logged in!");
-
-    // Hide the sign-in button by adding the 'hide' class
-    document.querySelector(".g-signin2").classList.add("hide");
-
-    // Optionally, you can display user info here as well if needed
-    // Example: Retrieve and display user info from the token
-    const userData = jwt_decode(storedToken);
-    console.log("User info:", userData);
-  } else {
-    console.log("❌ No session found, show login button");
-
-    // Show the sign-in button by removing the 'hide' class
-    document.querySelector(".g-signin2").classList.remove("hide");
-  }
-}
 
 function handleCredentialResponse(response) {
   if (!response.credential) {
