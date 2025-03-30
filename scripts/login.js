@@ -3,6 +3,7 @@ function onGapiLoaded() {
     client_id:
       "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
     callback: handleCredentialResponse,
+    auto_select: true,
   });
 
   google.accounts.id.renderButton(
