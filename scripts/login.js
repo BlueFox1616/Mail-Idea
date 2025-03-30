@@ -9,7 +9,7 @@ function onGapiLoaded() {
   google.accounts.id.renderButton(
     document.querySelector(".g-signin2"),
     { theme: "outline", size: "large" }, // Customize button appearance
-  );
+  ); // Removed the trailing comma here
 }
 
 function handleCredentialResponse(response) {
@@ -19,19 +19,17 @@ function handleCredentialResponse(response) {
   localStorage.setItem("userName", data.name); // Store the user name in localStorage
 
   // Display user data on the page
-
-  // Show the user data and hide the sign-in button
   $(".data").css("display", "block");
   $(".g-signin2").css("display", "none");
   $(".search_result").css("display", "none");
   startTypingEffect(firstText);
 }
+
 function triggerGoogleSignIn() {
   document.querySelector(".g-signin2").click(); // Simulate the click on the Google Sign-In button
 }
 
 // Sign out the user
-
 document.querySelector(".search_result").addEventListener("click", function () {
   triggerGoogleSignIn(); // Call the function when the element is clicked
 });
