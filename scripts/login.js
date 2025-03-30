@@ -3,54 +3,71 @@ function onGapiLoaded() {
     client_id:
       "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
     callback: handleCredentialResponse,
-    auto_select: true,
+    auto_select: true, // Auto-login enabled
   });
 
-  google.accounts.id.renderButton(
-    document.querySelector(".g-signin2"),
-    { theme: "outline", size: "large" }, // Customize button appearance
-  );
-}
+  google.accounts.id.renderButton(document.querySelector(".g-signin2"), {
+    theme: "outline",
+    size: "large",
+  });
 
-function handleCredentialResponse(response) {
-  const data = jwt_decode(response.credential); // Decode the JWT token to get user info
-  console.log(data); // Log the user data to the console
-
-  localStorage.setItem("userName", data.name);
-  localStorage.setItem("googleToken", response.credential); // Store the user name in localStorage
-
-  // Display user data on the page
-
-  // Show the user data and hide the sign-in button
-  $(".data").css("display", "block");
-  $(".g-signin2").css("display", "none");
-  $(".search_result").css("display", "none");
-  startTypingEffect(firstText);
-}
-function triggerGoogleSignIn() {
-  document.querySelector(".g-signin2").click(); // Simulate the click on the Google Sign-In button
-}
-window.onload = function () {
+  // Check if user is still logged in
   const storedToken = localStorage.getItem("googleToken");
 
   if (storedToken) {
-    console.log("✅ User is still logged in!");
-    $(".data").css("display", "block");
-    $(".g-signin2").css("display", "none");
-    $(".search_result").css("display", "none");
+    try {
+      const userData = jwt_decode(storedToken);
+      console.log("✅ User is still logged in!", userData);
+
+      $(".data").css("display", "block");
+      $(".g-signin2").css("display", "none");
+      $(".search_result").css("display", "none");
+    } catch (error) {
+      console.error("❌ Invalid or expired token", error);
+      localStorage.removeItem("googleToken");
+    }
   } else {
     console.log("❌ No session found, show login button");
     $(".g-signin2").css("display", "block");
     $(".data").css("display", "none");
   }
-};
-// Sign out the user
-function signOut() {
-  google.accounts.id.disableAutoSelect(); // Disable auto-select sign-in
-  $(".g-signin2").css("display", "block"); // Show the sign-in button again
-  $(".data").css("display", "none"); // Hide the user data
 }
 
-document.querySelector(".search_result").addEventListener("click", function () {
-  triggerGoogleSignIn(); // Call the function when the element is clicked
-});
+function handleCredentialResponse(response) {
+  if (!response.credential) {
+    console.error("❌ No credential received");
+    return;
+  }
+
+  const data = jwt_decode(response.credential);
+  console.log("✅ User logged in:", data);
+
+  // Store token & user info
+  localStorage.setItem("googleToken", response.credential);
+  localStorage.setItem("userName", data.name);
+
+  $(".data").css("display", "block");
+  $(".g-signin2").css("display", "none");
+  $(".search_result").css("display", "none");
+
+  startTypingEffect(firstText);
+}
+
+function triggerGoogleSignIn() {
+  document.querySelector(".g-signin2").click();
+}
+
+// Sign out function
+function signOut() {
+  google.accounts.id.disableAutoSelect();
+  localStorage.removeItem("googleToken"); // Clear stored session
+  $(".g-signin2").css("display", "block");
+  $(".data").css("display", "none");
+}
+
+// Attach event listener safely
+document
+  .querySelector(".search_result")
+  ?.addEventListener("click", function () {
+    triggerGoogleSignIn();
+  });
