@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link href="styles/email.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/api.js" async defer onload="onGapiLoaded()"></script>
 
-    <!-- Your custom scripts -->
-    <script>
         function onGapiLoaded() {
             console.log("Google API Loaded");
             gapi.load('client:auth2', initClient);
@@ -53,10 +41,3 @@
                 console.error("Error fetching messages:", error);
             });
         }
-    </script>
-</head>
-<body>
-    <h1>Gmail API Test</h1>
-    <p>Check the console for message IDs.</p>
-</body>
-</html>
