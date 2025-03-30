@@ -1,32 +1,43 @@
-let tokenClient;
+let accessToken = null;
 
-// Load Google API and Identity Services
+// Load Google API & Identity Services
 async function initGoogleAPI() {
-    console.log("Loading Google APIs...");
+    console.log("Initializing Google APIs...");
 
-    // Load Google Identity Services
-    tokenClient = google.accounts.oauth2.initTokenClient({
+    // Load Google Identity Services (GIS) authentication
+    google.accounts.id.initialize({
         client_id: "609769740177-14dcsedrjlasnnni0m2lbu73bqt2bct8.apps.googleusercontent.com",
-        scope: "https://www.googleapis.com/auth/gmail.readonly",
-        callback: async (response) => {
-            if (response.error) {
-                console.error("Authentication error:", response);
-                return;
-            }
-            console.log("User signed in. Token received.");
-            await fetchEmails();
-        },
+        callback: handleCredentialResponse,
+        auto_select: false,
     });
 
     // Load Gmail API
     await new Promise((resolve) => gapi.load("client", resolve));
-    await gapi.client.load("https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest");
+    await gapi.client.init({
+        apiKey: "AIzaSyCTPsrf_vVKjFBpuvP389eJkJym2QQjqck",
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"],
+    });
 
-    console.log("Google APIs loaded.");
+    console.log("Google APIs initialized.");
 }
 
-// Handle sign-in
-const signInWithGoogle = () => tokenClient.requestAccessToken();
+// Handle authentication response
+async function handleCredentialResponse(response) {
+    console.log("Google Sign-In Success:", response);
+
+    accessToken = response.credential; // Use this token for API requests
+
+    if (accessToken) {
+        await fetchEmails();
+    } else {
+        console.error("Failed to get access token.");
+    }
+}
+
+// Sign in user with Google
+const signInWithGoogle = () => {
+    google.accounts.id.prompt(); // Triggers Google Sign-In popup
+};
 
 // Fetch emails
 async function fetchEmails() {
@@ -36,6 +47,7 @@ async function fetchEmails() {
             userId: "me",
             maxResults: 10,
         });
+
         const messages = response.result.messages || [];
         console.log("Emails:", messages.length ? messages.map(msg => msg.id) : "No messages found.");
     } catch (error) {
