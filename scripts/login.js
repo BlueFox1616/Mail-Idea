@@ -31,11 +31,6 @@ function triggerGoogleSignIn() {
 }
 
 // Sign out the user
-function signOut() {
-  google.accounts.id.disableAutoSelect(); // Disable auto-select sign-in
-  $(".g-signin2").css("display", "block"); // Show the sign-in button again
-  $(".data").css("display", "none"); // Hide the user data
-}
 
 document.querySelector(".search_result").addEventListener("click", function () {
   triggerGoogleSignIn(); // Call the function when the element is clicked
