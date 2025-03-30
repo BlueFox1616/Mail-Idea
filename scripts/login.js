@@ -19,19 +19,18 @@ function onGapiLoaded() {
       const userData = jwt_decode(storedToken);
       console.log("✅ User is still logged in!", userData);
 
-      $(".data").css("display", "block");
-      $(".g-signin2").css("display", "none");
-      $(".search_result").css("display", "none");
+      // Hide the sign-in button by adding the 'hide' class
+      document.querySelector('.g-signin2').classList.add("hide");
     } catch (error) {
       console.error("❌ Invalid or expired token", error);
       localStorage.removeItem("googleToken");
     }
   } else {
     console.log("❌ No session found, show login button");
-    $(".g-signin2").css("display", "block");
-    $(".data").css("display", "none");
+
+    // Show the sign-in button by removing the 'hide' class
+    document.querySelector('.g-signin2').classList.remove("hide");
   }
-}
 
 function handleCredentialResponse(response) {
   if (!response.credential) {
